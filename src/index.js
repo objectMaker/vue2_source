@@ -1,5 +1,4 @@
-console.log(111);
-const abc = () => {
-  console.log(4);
-};
-abc();
+function Vue(options) {
+  console.log(options.name, "name");
+}
+export default Vue;
