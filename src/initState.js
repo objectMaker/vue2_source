@@ -13,8 +13,7 @@ export function initState(vm) {
     vm.props = opts.props;
   }
   function initData() {
-    vm._data = typeof opts.data === "function" ? opts.data() : opts.data;
-    console.log("jfjasjfsad");
+    vm._data = typeof opts.data === "function" ? opts.data.call(vm) : opts.data;
     observer(vm);
   }
   //实现对象的数据劫持

@@ -1,24 +1,35 @@
+import { isObject } from "../utils/index.js";
 export function observer(vm) {
   //对_data进行遍历
   const data = vm._data;
-  function watch(data,target){
-    for (let i = 0; i < Object.keys(data).length; i++) {
-        const item = Object.keys(data)[i];
-        if(typeof item === 'object' && !(item instanceof Array)) {
-            //证明这是个对象，进行递归操作
-            watch(item,)
+  //将_data转化为
+
+  defineReactive(data);
+}
+function defineReactive(target) {
+  const keys = Object.keys(target);
+  keys.forEach((item) => {
+    let value = target[item]; //这里使用闭包实现 获取value和设置value 都是操作同一个变量
+    Object.defineProperty(target, item, {
+      get() {
+        if (isObject(value)) {
+          defineReactive(value);
         }
-        Object.defineProperty(target, item, {
-          get() {
-            console.log("获取数据");
-            return data[item];
-          },
-          set(value) {
-            console.log("设置数据");
-            data[item] = value;
-          },
-        });
-      }
-  }
-  watch(data,vm)
+        return value;
+      },
+      set(newValue) {
+        console.log("检测到了设置数据");
+        console.log(newValue, isObject(newValue));
+        if (isObject(newValue)) {
+          console.log("设置新的响应式");
+          value = newValue;
+          defineReactive(value);
+        } else if (value === newValue) {
+          return;
+        } else {
+          value = newValue;
+        }
+      },
+    });
+  });
 }

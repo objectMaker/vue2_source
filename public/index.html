@@ -15,11 +15,22 @@
             data:{
                 name:'ybf',
                 age:27,
+                info:{
+                    name:'ddd',
+                    age:18
+                }
             }
         })
         console.log(vm,'vmmmmmm');
-        vm.age;
-        vm.age = 28;
+        vm._data.age;
+        vm._data.age = 28;
+        setTimeout(()=>{
+            console.log('fjdasjfjdaj');
+            vm._data.info = {
+                shabi:"dsss",
+                age:'123'
+            }
+        },2000)
     </script>
 </body>
 </html>
