@@ -1,4 +1,6 @@
+import { init } from "./init.js";
 function Vue(options) {
-  console.log(options.name, "name");
+  this._init(options);
 }
+init(Vue);
 export default Vue;
